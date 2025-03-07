@@ -33,7 +33,8 @@ public class Main {
             System.out.println("4. Update Task");
             System.out.println("5. Search Task");
             System.out.println("6. Sort Tasks");
-            System.out.println("7. Exit");
+            System.out.println("7. Reversed sort tasks");
+            System.out.println("0. Exit");
 
             String command = scanner.nextLine();
 
@@ -85,7 +86,11 @@ public class Main {
                     tasks.sort(Comparator.comparing(task -> task.createdAt));
                     System.out.println("Tasks sorted by creation date.");
                     break;
-                case "7": // Exit
+                case "7": // Reversed sort Tasks
+                    tasks.sort(Comparator.comparing((Task task) -> task.createdAt).reversed());
+                    System.out.println("Tasks sorted by description.");
+                    break;
+                case "0": // Exit
                     System.out.println("Application closed");
                     running = false;
                     break;
