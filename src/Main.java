@@ -34,6 +34,7 @@ public class Main {
             System.out.println("5. Search Task");
             System.out.println("6. Sort Tasks");
             System.out.println("7. Reversed sort tasks");
+            System.out.println("8. Search Task by description");
             System.out.println("0. Exit");
 
             String command = scanner.nextLine();
@@ -73,12 +74,14 @@ public class Main {
                         }
                     }
                     break;
-                case "5": // Search Task
-                    System.out.println("Enter keyword to search tasks: ");
+                case "5": // Search Task by name
+                    System.out.println("Enter keyword to search tasks by name: ");
                     String keyword = scanner.nextLine();
                     for (Task task : tasks) {
-                        if (task.name.contains(keyword) || task.description.contains(keyword)) {
+                        if (task.name.contains(keyword)) {
                             System.out.println(task);
+                        } else {
+                            System.out.println("Task not found!");
                         }
                     }
                     break;
@@ -89,6 +92,17 @@ public class Main {
                 case "7": // Reversed sort Tasks
                     tasks.sort(Comparator.comparing((Task task) -> task.createdAt).reversed());
                     System.out.println("Tasks sorted by description.");
+                    break;
+                case "8": // Search Task by description
+                    System.out.println("Enter keyword to search tasks by description: ");
+                    String keywordToSearch = scanner.nextLine();
+                    for (Task task : tasks) {
+                        if(task.description.contains(keywordToSearch)) {
+                            System.out.println(task);
+                        }else{
+                            System.out.println("Task not found!");
+                        }
+                    }
                     break;
                 case "0": // Exit
                     System.out.println("Application closed");
