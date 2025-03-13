@@ -1,11 +1,17 @@
+import java.io.*;
 import java.util.*;
-import java.text.*;
 
-1
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+
 public class Main {
     static List<Task> tasks = new ArrayList<>();
-
+    private static final String path = "tasks.json";
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public static void main(String[] args) {
+        readFromFile();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -75,7 +81,7 @@ public class Main {
                     break;
                 case "7": // Reversed sort Tasks
                     tasks.sort(Comparator.comparing((Task task) -> task.createdAt).reversed());
-                    System.out.println("Tasks sorted by description.");
+                    System.out.println("Tasks reversed sorted .");
                     break;
                 case "8": // Search Task by description
                     System.out.println("Enter keyword to search tasks by description: ");
@@ -89,6 +95,7 @@ public class Main {
                     }
                     break;
                 case "0": // Exit
+                    writeToFile();
                     System.out.println("Application closed");
                     running = false;
                     break;
@@ -97,5 +104,38 @@ public class Main {
             }
         }
         scanner.close();
+
+    }
+    static void writeToFile() {
+        try(Writer writer = new FileWriter(path))
+        {
+            gson.toJson(tasks, writer);
+            System.out.println("Tasks written successfully!");
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    static void readFromFile() {
+        File file = new File(path);
+        if (!file.exists()) {
+            System.out.println("No saved tasks found.");
+            tasks = new ArrayList<>(); // Инициализируем, если файла нет
+            return;
+        }
+        try (Reader reader = new FileReader(path)) {
+            List<Task> loadedTasks = gson.fromJson(reader, new TypeToken<List<Task>>(){}.getType());
+            if (loadedTasks != null) {
+                tasks = loadedTasks;
+                System.out.println("Tasks read successfully!");
+            } else {
+                tasks = new ArrayList<>();
+                System.out.println("Tasks list is empty!");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error reading from file: " + ex.getMessage());
+        }
     }
 }
+
+
