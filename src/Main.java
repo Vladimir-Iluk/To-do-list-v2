@@ -120,7 +120,7 @@ public class Main {
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("No saved tasks found.");
-            tasks = new ArrayList<>(); // Инициализируем, если файла нет
+            tasks = new ArrayList<>();
             return;
         }
         try (Reader reader = new FileReader(path)) {
