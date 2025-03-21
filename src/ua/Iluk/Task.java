@@ -1,3 +1,5 @@
+package ua.Iluk;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,6 +16,6 @@ class Task {
 
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return "Task Name: " + name + "\nDescription: " + description + "\nCreated At: " + sdf.format(createdAt);
+        return "ua.Iluk.Task Name: " + name + "\nDescription: " + description + "\nCreated At: " + sdf.format(createdAt);
     }
 }
